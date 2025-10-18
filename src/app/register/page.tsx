@@ -19,7 +19,8 @@ export default function UserRegistrationForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const res = await fetch("http://localhost:3000/api/register", {
+    const res = await fetch(" https://project08-bay.vercel.app/api/register", {
+      /* const res = await fetch("http://localhost:3000/api/register", { */
       method: "POST",
       headers: {
         "Content-Type": "application/json",
