@@ -7,7 +7,7 @@ export default async function page() {
   return (
     <div className="text-4xl">
       <div className="sticky top-0 z-10 bg-slate-900 flex flex-col items-center">
-        <p>Posts are fetched from mongo database directly!</p>
+        <p>Posts from mongo database directly!</p>
         <br />
         <HomeButton />
         <br />
