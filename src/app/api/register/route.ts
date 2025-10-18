@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   const { username, password } = await request.json();
 
   if (!username || !password) {
-    return NextResponse.json(null, {
+    return NextResponse.json({
       status: 400,
       statusText: "Bad Request, username and/or password missing",
     });
@@ -35,21 +35,18 @@ export async function POST(request: Request) {
     refreshToken: "",
   };
   //write to database
-
   const result = await User.create(newUser);
   // send response if registration failed
 
   if (!result) {
-    return NextResponse.json(
-      { message: "registration failed" },
-      {
-        status: 500,
-        statusText: "server error, registration failed",
-      }
-    );
+    return NextResponse.json({
+      message: "registration failed",
+      status: 500,
+      statusText: "server error, registration failed",
+    });
   }
 
   console.log(result);
-  //send back success message, with username
+
   return NextResponse.json(result);
 }

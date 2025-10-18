@@ -27,8 +27,19 @@ export default function UserLoginForm() {
     });
     const result = await res.json();
     console.log(result);
-    if (result.message === "Logged In") {
-      router.push(`/users/${username}`);
+    console.log(typeof result);
+    console.log(result.status);
+    console.log(result.statusText);
+    console.log(result.username);
+
+    if (result.username === username) {
+      router.push(`/users/${username}/${result.id}`);
+      setUsername("");
+      setPassword("");
+    } else {
+      router.push(`/users/${result.username}/0`);
+      setUsername("");
+      setPassword("");
     }
   }
 
@@ -38,7 +49,6 @@ export default function UserLoginForm() {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center gap-5 p-10"
       >
-        {/* <label htmlFor="username">Username</label> */}
         <input
           name="username"
           type="text"
@@ -49,7 +59,6 @@ export default function UserLoginForm() {
           required
           className="px-6 py-2 border-1 rounded-2xl"
         />
-        {/*         <label htmlFor="username">Password</label> */}
         <input
           type="text"
           placeholder="password"
