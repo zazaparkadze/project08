@@ -22,7 +22,7 @@ export default function UserRegistrationForm() {
     const res = await fetch(" https://project08-bay.vercel.app/api/register", {
       /* const res = await fetch("http://localhost:3000/api/register", { */
       method: "POST",
-      credentials: "include",
+      // credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
