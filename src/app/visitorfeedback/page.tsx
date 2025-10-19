@@ -18,11 +18,10 @@ export default function Feedback() {
       textContent,
     };
 
-    /*   const res = await fetch(
-      "https://project08-fqkcwzagh-zaza-parkadze.vercel.app/api/feedback",
-      { */
-    const res = await fetch("http://localhost:3000/api/feedback", {
+    const res = await fetch("https://project08-bay.vercel.app/api/feedback", {
+      /* const res = await fetch("http://localhost:3000/api/feedback", { */
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
