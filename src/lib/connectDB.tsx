@@ -14,7 +14,8 @@ export default async function connectDB() {
   try {
     await mongoose
       .connect(
-        "mongodb+srv://zaza:1234test@cluster0.crzqo.mongodb.net/mongoData?retryWrites=true&w=majority&appName=Cluster0",
+        process.env.DATA_BASE_URI ||
+          "mongodb+srv://zaza:1234test@cluster0.crzqo.mongodb.net/mongoData?retryWrites=true&w=majority&appName=Cluster0",
         {
           maxPoolSize: 10,
           minPoolSize: 1,
