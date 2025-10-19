@@ -13,17 +13,13 @@ export default async function connectDB() {
 
   try {
     await mongoose
-      .connect(
-        process.env.DATA_BASE_URI ||
-          "mongodb+srv://zaza:1234test@cluster0.crzqo.mongodb.net/mongoData?retryWrites=true&w=majority&appName=Cluster0",
-        {
-          maxPoolSize: 10,
-          minPoolSize: 1,
-          connectTimeoutMS: 15000,
-          serverSelectionTimeoutMS: 11000,
-          socketTimeoutMS: 180000,
-        }
-      )
+      .connect(process.env.DATA_BASE_URI as string, {
+        maxPoolSize: 10,
+        minPoolSize: 1,
+        connectTimeoutMS: 15000,
+        serverSelectionTimeoutMS: 11000,
+        socketTimeoutMS: 180000,
+      })
       .then(() => console.log("connected to mongoDB"));
   } catch (error) {
     console.log(error);
