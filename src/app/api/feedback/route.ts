@@ -31,6 +31,7 @@ export async function POST(request: Request) {
     }
   }
   return NextResponse.json(sentData, {
+    status: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",

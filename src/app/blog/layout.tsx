@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-/* import { Geist, Geist_Mono } from "next/font/google"; */
-import "@/app/globals.css";
+
 import NavBar from "./components/NavBar";
 import Watch from "./components/Watch";
-/* 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-}); */
 
 export const metadata: Metadata = {
   title: "Next Blog",
@@ -25,7 +14,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`antialiased bg-slate-800`}>
+    <div className={` antialiased bg-slate-800`}>
       <NavBar />
       <Watch />
       {children}

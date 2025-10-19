@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  /*   crossOrigin: "anonymous", */
   images: {
     remotePatterns: [
       {
@@ -22,7 +23,7 @@ const nextConfig: NextConfig = {
       script-src 'self' 'unsafe-inline' 'unsafe-eval';
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: https://upload.wikimedia.org;
-      connect-src 'self' http://localhost:3000 https://*.vercel.app;
+       connect-src 'self' http://localhost:3000 https://*.vercel.app;
       font-src 'self' data:;
       object-src 'none';
       frame-ancestors 'none';
@@ -31,11 +32,25 @@ const nextConfig: NextConfig = {
       .trim();
     return [
       {
-        source: "/(.*)",
+        source: "/api/(.*)",
         headers: [
           {
             key: "Content-Security-Policy",
             value: csp,
+          },
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,DELETE,PATCH,POST,PUT",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value:
+              "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
           },
         ],
       },
@@ -44,11 +59,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-/* 
- img-src 'self' blob: data:;
-    font-src 'self';
-    base-uri 'self';
-    form-action 'self';
-    upgrade-insecure-requests;
- */

@@ -6,11 +6,10 @@ export default async function page() {
   const posts: Post[] = JSON.parse(await getAllPosts());
   return (
     <div className="text-4xl">
-      <div className="sticky top-0 z-10 bg-slate-900 flex flex-col items-center">
+      <div className="sticky top-0 bg-black flex flex-col items-center pt-5">
         <p>Posts from mongo database directly!</p>
         <br />
         <HomeButton />
-        <br />
         <br />
       </div>
       {posts.map((post) => (
