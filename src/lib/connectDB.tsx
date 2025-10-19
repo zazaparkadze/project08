@@ -13,7 +13,13 @@ export default async function connectDB() {
 
   try {
     await mongoose
-      .connect(process.env.DATA_BASE_URI as string)
+      .connect(process.env.DATA_BASE_URI as string, {
+        maxPoolSize: 10,
+        minPoolSize: 1,
+        connectTimeoutMS: 15000,
+        serverSelectionTimeoutMS: 11000,
+        socketTimeoutMS: 180000,
+      })
       .then(() => console.log("connected to mongoDB"));
   } catch (error) {
     console.log(error);
