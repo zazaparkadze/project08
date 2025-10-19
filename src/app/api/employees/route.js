@@ -1,6 +1,6 @@
 import Employee from "@/model/Employee";
 import { NextResponse } from "next/server";
-import connectDb from "@/lib/connectDb";
+import connectDB from "@/lib/connectDB";
 
 export async function OPTIONS() {
   return new Response(null, {
@@ -14,7 +14,7 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  connectDb();
+  connectDB();
   const employees = await Employee.find();
   if (!employees.length) {
     return NextResponse.json({ message: "employees array is empty" });
