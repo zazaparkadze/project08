@@ -1,9 +1,9 @@
 import Post from "@/model/Post";
 import { NextResponse } from "next/server";
-import connectToMongo from "@/lib/connectToMongo";
+import connectDB from "@/lib/connectDB";
 
 export async function GET() {
-  connectToMongo();
+  connectDB();
   const Posts = await Post.find();
   if (!Posts.length) {
     return NextResponse.json({ message: "Posts array is empty" });

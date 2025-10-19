@@ -33,7 +33,6 @@ export default function UserRegistrationForm() {
       }),
     });
     const result = await res.json();
-    console.log(result);
     if (result.username === username) {
       /*    router.push(`/users/${username}`); */
       setRegistration(false);
@@ -58,7 +57,6 @@ export default function UserRegistrationForm() {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center gap-5 p-10"
       >
-        {/*         <label htmlFor="username">Username</label> */}
         <input
           name="username"
           type="text"
@@ -69,7 +67,6 @@ export default function UserRegistrationForm() {
           required
           className="px-6 py-2 border-1 rounded-2xl"
         />
-        {/*         <label htmlFor="username">Password</label> */}
         <input
           type="text"
           placeholder="password"

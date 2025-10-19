@@ -1,9 +1,9 @@
 "use server";
 import Employee from "../model/Employee";
-import connectToMongo from "./connectToMongo";
+import connectDB from "./connectDB";
 
 export default async function getAllEmployees() {
-  connectToMongo();
+  connectDB();
   const allEmployees: Employee[] = await Employee.find({});
 
   return JSON.stringify(allEmployees);

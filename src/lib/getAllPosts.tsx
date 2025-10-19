@@ -1,9 +1,9 @@
 "use server";
 import Post from "../model/Post";
-import connectToMongo from "./connectToMongo";
+import connectDB from "./connectDB";
 
 export default async function getAllPosts() {
-  connectToMongo();
+  connectDB();
   const allPosts: Post[] = await Post.find();
 
   return JSON.stringify(allPosts);

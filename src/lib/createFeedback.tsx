@@ -1,9 +1,9 @@
 "use server";
 import Feedback from "@/model/Feedback";
-import connectToMongo from "./connectToMongo";
+import connectDB from "@/lib/connectDB";
 
 export default async function CreateFeedback(feedbackObj: Feedback) {
-  connectToMongo();
+  connectDB();
   const response = await Feedback.create(feedbackObj);
 
   return JSON.stringify(response);

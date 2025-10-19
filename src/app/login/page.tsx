@@ -29,12 +29,6 @@ export default function UserLoginForm() {
       }),
     });
     const result = await res.json();
-    console.log(result);
-    console.log(typeof result);
-    console.log(result.status);
-    console.log(result.statusText);
-    console.log(result.username);
-
     if (result.username === username) {
       router.push(`/users/${username}/${result.id}`);
       setUsername("");

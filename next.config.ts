@@ -23,8 +23,8 @@ const nextConfig: NextConfig = {
       script-src 'self' 'unsafe-inline' 'unsafe-eval';
       style-src 'self' 'unsafe-inline';
       img-src 'self' data: https://upload.wikimedia.org;
-       connect-src 'self' http://localhost:3000 https://*.vercel.app;
-      font-src 'self' data:;
+       connect-src 'self' *.vercel.app;
+      font-src 'self' data: *.google.com;
       object-src 'none';
       frame-ancestors 'none';
     `

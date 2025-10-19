@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       statusText: "Bad Request, username and/or password missing",
     });
   }
-  // check username
+
   connectDB();
   const duplicate = await User.findOne({ username }).exec();
   if (duplicate) {
@@ -36,7 +36,6 @@ export async function POST(request: Request) {
       }
     );
   }
-  // create hashed password, create new user
   const allUsers = await User.find().lean().exec();
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser: User = {
@@ -45,10 +44,7 @@ export async function POST(request: Request) {
     password: hashedPassword,
     refreshToken: "",
   };
-  //write to database
   const result = await User.create(newUser);
-  // send response if registration failed
-
   if (!result) {
     return NextResponse.json({
       message: "registration failed",
@@ -56,8 +52,5 @@ export async function POST(request: Request) {
       statusText: "server error, registration failed",
     });
   }
-
-  console.log(result);
-
   return NextResponse.json(result);
 }
