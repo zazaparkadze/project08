@@ -18,7 +18,6 @@ export default function UserLoginForm() {
     const res = await fetch("https://project08-bay.vercel.app/api/login", {
       /* const res = await fetch("http://localhost:3000/api/login", { */
       method: "POST",
-      //   credentials: "include", // or 'same-origin'
       headers: {
         "Content-Type": "application/json",
       },

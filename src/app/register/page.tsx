@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState, FormEvent, useRef, useEffect } from "react";
-/* import { useRouter } from "next/navigation"; */
 import clsx from "clsx";
 
 export default function UserRegistrationForm() {
@@ -10,7 +9,6 @@ export default function UserRegistrationForm() {
   const [registerResult, setRegisterResult] = useState(true);
   const [registration, setRegistration] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
-  /*   const router = useRouter(); */
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -22,7 +20,6 @@ export default function UserRegistrationForm() {
     const res = await fetch(" https://project08-bay.vercel.app/api/register", {
       /* const res = await fetch("http://localhost:3000/api/register", { */
       method: "POST",
-      // credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -33,7 +30,6 @@ export default function UserRegistrationForm() {
     });
     const result = await res.json();
     if (result.username === username) {
-      /*    router.push(`/users/${username}`); */
       setRegistration(false);
       setPassword("");
       setUsername("");
