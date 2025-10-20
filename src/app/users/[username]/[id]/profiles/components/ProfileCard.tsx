@@ -1,19 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import sharpResize from "@/lib/sharpResize";
-import { readdirSync, existsSync } from "fs";
+/* import sharpResize from "@/lib/sharpResize";
+import { readdirSync, existsSync } from "fs"; */
 
 type Prop = {
   empl: EmployeeOld;
 };
 export default function ProfileCard({ empl }: Prop) {
-  const fileNames = readdirSync("./public/employees");
+  /* const fileNames = readdirSync("./public/employees");
 
   fileNames.map(
     (name) =>
       !existsSync(`./public/${name}`) &&
       sharpResize(`./public/employees/${name}`)
-  );
+  ); */
 
   const content = (
     <div
