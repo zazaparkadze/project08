@@ -15,8 +15,8 @@ export default async function UserPage({ params }: Params) {
       ) : username.includes("Allowed") ? (
         <p className="text-3xl">{decodeURIComponent(username)}</p>
       ) : (
-        <div className="text-4xl">
-          <p> Hello ... {decodeURIComponent(username).toUpperCase()}</p>
+        <div className="text-2xl">
+          {/* <p> Hello ... {decodeURIComponent(username).toUpperCase()}</p> */}
           <UserHomePage username={username} id={id} />
         </div>
       )}
