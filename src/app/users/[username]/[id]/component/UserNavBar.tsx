@@ -31,7 +31,7 @@ export default async function UserNavBar({ username }: Props) {
 
   const content = (
     <div className="sticky top-0 bg-gray-900 text-amber-500 h-15 flex justify-between items-center px-5 text-2xl">
-      <div>Hello {username.toUpperCase()}</div>
+      <div>Hello {foundUserProfile.name.toUpperCase()}</div>
       <div className="flex gap-3">
         <div>{foundUserProfile?.profile.worksAt}</div>
         <div>{foundUserProfile?.profile.chat}</div>
