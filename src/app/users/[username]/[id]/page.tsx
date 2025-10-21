@@ -16,7 +16,6 @@ export default async function UserPage({ params }: Params) {
         <p className="text-3xl">{decodeURIComponent(username)}</p>
       ) : (
         <div className="text-2xl">
-          {/* <p> Hello ... {decodeURIComponent(username).toUpperCase()}</p> */}
           <UserHomePage username={username} id={id} />
         </div>
       )}

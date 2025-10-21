@@ -17,30 +17,52 @@ export async function OPTIONS() {
 export async function POST(request: Request) {
   connectDB();
   const { username, password } = await request.json();
+  const origin = request.headers.get("origin");
 
   if (!username || !password) {
-    return NextResponse.json({
-      status: 400,
-      statusText: "Bad Request",
-    });
+    return NextResponse.json(
+      {
+        message: "username and password required",
+      },
+      {
+        status: 400,
+        statusText: "Bad Request",
+        headers: {
+          "Access-Control-Allow-Origin": origin || "*",
+        },
+      }
+    );
   }
-  //check that user exists
   const foundUser: User | null = await User.findOne({ username: username });
 
   if (!foundUser) {
-    return NextResponse.json({
-      username: "Sorry, Register First",
-      status: 401,
-      statusText: "unauthorized",
-    });
+    return NextResponse.json(
+      {
+        username: "Sorry, Register First",
+      },
+      {
+        status: 401,
+        statusText: "unauthorized",
+        headers: {
+          "Access-Control-Allow-Origin": origin || "*",
+        },
+      }
+    );
   }
   const match = await bcrypt.compare(password, foundUser.password);
   if (!match) {
-    return NextResponse.json({
-      username: "Sorry, You Are Not Allowed",
-      status: 403,
-      statusText: "forbidden",
-    });
+    return NextResponse.json(
+      {
+        username: "Sorry, You Are Not Allowed",
+      },
+      {
+        status: 403,
+        statusText: "forbidden",
+        headers: {
+          "Access-Control-Allow-Origin": origin || "*",
+        },
+      }
+    );
   }
   //jwt
 
