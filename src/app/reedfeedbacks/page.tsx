@@ -8,7 +8,10 @@ export default async function page() {
   const collectedData: Feedback[] = JSON.parse(rawData);
 
   const content = collectedData.map((feedback) => (
-    <div key={feedback.textContent} className="pl-60">
+    <div
+      key={feedback.textContent}
+      className="flex flex-col items-start sm:mx-50 mx-25 sm:text-2xl w-fit whitespace-nowrap"
+    >
       <p>Name: &nbsp;&nbsp;&nbsp;{feedback.name}</p>
       <p>Email: &nbsp;&nbsp;&nbsp;{feedback.email}</p>
       <p>Phone Number:&nbsp;&nbsp;&nbsp;{feedback.phone}</p>

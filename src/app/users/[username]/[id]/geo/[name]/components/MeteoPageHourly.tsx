@@ -24,7 +24,7 @@ export default function MeteoPageHourly({
   const dateTime = new Date(time).toString();
   return (
     <section className="w-[100%] bg-gradient-to-r from-gray-400 to-gray-100 flex flex-col items-center justify-center gap-1 mt-3 py-2 rounded-[15px]">
-      <p className="font-bold text-3xl">
+      <p className="font-bold text-[16px] sm:text-3xl">
         {format(dateTime, "dd-MM-yyyy\thh:mm:ss")}:{" "}
         <span
           className={`${clsx({
@@ -38,10 +38,10 @@ export default function MeteoPageHourly({
           {temp} {tempUnit}
         </span>
       </p>
-      <p>
+      <p className="font-bold text-[16px] sm:text-3xl">
         Wind: {wind_speed} {wind_speedUnit}
       </p>
-      <p>
+      <p className="font-bold text-[16px] sm:text-3xl">
         Humidity: {humidity} {humidityUnit}{" "}
       </p>
     </section>

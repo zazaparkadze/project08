@@ -29,7 +29,7 @@ export default async function page({ params }: Props) {
   if (!geoResults) {
     return (
       <section className="grid place-content-center p-5 m-5">
-        <h1 className="text-3xl mb-5">
+        <h1 className="text-[16px] sm:text-3xl mb-5">
           Location with name:
           <br />
           <span className=" text-red-700">
@@ -46,7 +46,10 @@ export default async function page({ params }: Props) {
   }
   const content = (
     <div className="flex flex-col wrap-break-word bg-gray-300 text-black min-h-[100vh] justify-center items-center">
-      <h1 className="text-4xl text-center font-bold"> {name.toUpperCase()}</h1>
+      <h1 className="text-[16px] sm:text-4xl text-center font-bold">
+        {" "}
+        {name.toUpperCase()}
+      </h1>
       {geoResults.map((result) => (
         <GeoPage result={result} key={result.id} searchName={name} />
       ))}

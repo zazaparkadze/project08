@@ -7,7 +7,7 @@ type Props = {
 
 export default function MeteoPageCurrent({ meteo }: Props) {
   return (
-    <div className=" text-amber-500 p-6 rounded-2xl bg-gradient-to-r from-gray-700 to-gray-400">
+    <div className="text-[16px] sm:text-3xl text-amber-500 p-6 rounded-2xl bg-gradient-to-r from-gray-700 to-gray-400">
       <ul>
         <li>Refresh Interval: {meteo.current.interval / 60} minutes!</li>
         <li>
