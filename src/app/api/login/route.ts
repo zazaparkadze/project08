@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/connectDB";
 import User from "@/model/User";
 import bcrypt from "bcrypt";
+import { limiter } from "@/config/limiter";
 
 export async function OPTIONS() {
   return new Response(null, {
@@ -16,8 +17,25 @@ export async function OPTIONS() {
 
 export async function POST(request: Request) {
   connectDB();
-  const { username, password } = await request.json();
   const origin = request.headers.get("origin");
+  const remaining = await limiter.removeTokens(1);
+  if (remaining < 0) {
+    return NextResponse.json(
+      {
+        message: "maximum login rate exceeded",
+      },
+      {
+        status: 429,
+        statusText: "Too many Request",
+        headers: {
+          "Access-Control-Allow-Origin": origin || "*",
+          "Content-Type": "text/plain;charset=UTF-8",
+        },
+      }
+    );
+  }
+
+  const { username, password } = await request.json();
 
   if (!username || !password) {
     return NextResponse.json(

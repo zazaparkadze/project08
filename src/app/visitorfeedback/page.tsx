@@ -33,7 +33,6 @@ export default function Feedback() {
       );
     }
     const result = await res.json();
-    console.log(result);
     const paramsString = new URLSearchParams(result).toString();
 
     router.push(`thankyou/${paramsString}`);

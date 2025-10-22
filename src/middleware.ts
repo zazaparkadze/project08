@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
+  const origin = request.headers.get("origin");
+  console.log(origin);
   const pathname = request.nextUrl.pathname;
 
   if (pathname === "/michael") {
