@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Watch from "./blog/components/Watch";
-/* import { gridlp } from "@zazaparkadze/gridlp"; */
 
 export default function Home() {
   return (
@@ -13,7 +12,7 @@ export default function Home() {
         <p>
           <Link href={"register"}>Register </Link>
         </p>
-        {/* <p>{gridlp(" guest")}</p> */}
+
         <p>
           <Link href={"employees"}>Employees</Link>
         </p>

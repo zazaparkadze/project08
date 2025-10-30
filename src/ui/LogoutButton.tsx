@@ -11,7 +11,7 @@ export default function LogoutButton() {
   };
 
   return (
-    <Link href={"/"}>
+    <Link href={"/login"}>
       <div
         onClick={() => handleLogout()}
         className="flex gap-3 hover:bg-slate-400 hover:text-slate-900 text-4xl text-slate-400 max-w-fit border-1 px-5 py-2"
