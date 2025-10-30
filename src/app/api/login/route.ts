@@ -82,7 +82,7 @@ export async function POST(request: Request) {
       }
     );
   }
-  //jwt
+
   const accessToken = jwt.sign(
     { username: foundUser.username },
     process.env.ACCESS_TOKEN_SECRET!,
@@ -123,7 +123,3 @@ export async function POST(request: Request) {
 
   return response;
 }
-/*
-
-   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",  */

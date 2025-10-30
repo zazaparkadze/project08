@@ -14,9 +14,8 @@ export default function HelloPage({ url }: { url: string }) {
       try {
         const res = await fetch(url, {
           method: "GET",
-          credentials: "include", // send cookies
+          credentials: "include",
         });
-        console.log(res);
         if (!res.ok) {
           setResult({
             message:
