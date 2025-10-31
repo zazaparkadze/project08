@@ -43,6 +43,12 @@ export default function UserHomePage({ username, id }: Props) {
             </Link>
           </li>
           <br />
+          <li>
+            <Link href={`${id}/hello`}>
+              <p className="hover:scale-110 text-center">hello</p>
+            </Link>
+          </li>
+          <br />
         </ul>
       </main>
     </div>

@@ -18,8 +18,13 @@ export default function Feedback() {
       textContent,
     };
 
-    const res = await fetch("https://project08-bay.vercel.app/api/feedback", {
-      /* const res = await fetch("http://localhost:3000/api/feedback", { */
+    const url =
+      process.env.NODE_ENV === "production"
+        ? "https://project08-bay.vercel.app/api/feedback"
+        : "http://localhost:3000/api/feedback";
+
+    /* const res = await fetch("https://project08-bay.vercel.app/api/feedback", { */
+    const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

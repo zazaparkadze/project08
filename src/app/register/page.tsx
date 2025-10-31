@@ -17,8 +17,13 @@ export default function UserRegistrationForm() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const res = await fetch(" https://project08-bay.vercel.app/api/register", {
-      /* const res = await fetch("http://localhost:3000/api/register", { */
+    const url =
+      process.env.NODE_ENV === "production"
+        ? "https://project08-bay.vercel.app/api/register"
+        : "http://localhost:3000/api/register";
+
+    /* const res = await fetch(" https://project08-bay.vercel.app/api/register", { */
+    const res = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

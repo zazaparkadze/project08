@@ -3,21 +3,30 @@ import connectDB from "@/lib/connectDB";
 import User from "@/model/User";
 import bcrypt from "bcrypt";
 import { limiter } from "@/config/limiter";
-
-export async function OPTIONS() {
+import jwt from "jsonwebtoken";
+/* 
+export async function OPTIONS(request: Request) {
+  const origin = request.headers.get("origin");
+  const loginResponseHeaders = {
+    "Access-Control-Allow-Origin": origin!,
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
   return new Response(null, {
     status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
+    headers: loginResponseHeaders,
   });
 }
-
+ */
 export async function POST(request: Request) {
   connectDB();
   const origin = request.headers.get("origin");
+  const loginResponseHeaders = {
+    "Access-Control-Allow-Origin": origin!,
+    "Access-Control-Allow-Credentials": "true",
+  };
+
   const remaining = await limiter.removeTokens(1);
   if (remaining < 0) {
     return NextResponse.json(
@@ -27,10 +36,7 @@ export async function POST(request: Request) {
       {
         status: 429,
         statusText: "Too many Request",
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*",
-          "Content-Type": "text/plain;charset=UTF-8",
-        },
+        headers: loginResponseHeaders,
       }
     );
   }
@@ -45,13 +51,11 @@ export async function POST(request: Request) {
       {
         status: 400,
         statusText: "Bad Request",
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*",
-        },
+        headers: loginResponseHeaders,
       }
     );
   }
-  const foundUser: User | null = await User.findOne({ username: username });
+  const foundUser = await User.findOne({ username: username });
 
   if (!foundUser) {
     return NextResponse.json(
@@ -61,9 +65,7 @@ export async function POST(request: Request) {
       {
         status: 401,
         statusText: "unauthorized",
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*",
-        },
+        headers: loginResponseHeaders,
       }
     );
   }
@@ -76,21 +78,48 @@ export async function POST(request: Request) {
       {
         status: 403,
         statusText: "forbidden",
-        headers: {
-          "Access-Control-Allow-Origin": origin || "*",
-        },
+        headers: loginResponseHeaders,
       }
     );
   }
-  //jwt
 
-  return NextResponse.json(foundUser, {
-    status: 200,
-    statusText: "loggedIn",
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  const accessToken = jwt.sign(
+    { username: foundUser.username },
+    process.env.ACCESS_TOKEN_SECRET!,
+    { expiresIn: "1m" }
+  );
+
+  const refreshToken = jwt.sign(
+    { username: foundUser.username },
+    process.env.REFRESH_TOKEN_SECRET!,
+    { expiresIn: "180m" }
+  );
+
+  foundUser.refreshToken = refreshToken;
+  await foundUser.save();
+
+  const response = NextResponse.json(
+    {
+      username: foundUser.username,
+      id: foundUser.id,
+      accessToken: accessToken,
     },
+    {
+      status: 200,
+      statusText: "loggedIn",
+      headers: loginResponseHeaders,
+    }
+  );
+
+  response.cookies.set({
+    name: "refreshToken",
+    value: refreshToken,
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    maxAge: 86400,
+    path: "/",
   });
+
+  return response;
 }

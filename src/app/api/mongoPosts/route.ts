@@ -2,16 +2,17 @@ import Post from "@/model/Post";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/connectDB";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const origin = request.headers.get("origin");
   connectDB();
   const Posts = await Post.find();
   if (!Posts.length) {
     return NextResponse.json(
       { message: "Posts array is empty" },
       {
-        status: 204,
+        status: 200,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": origin!,
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
@@ -21,7 +22,7 @@ export async function GET() {
   return NextResponse.json(Posts, {
     status: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": origin!,
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },

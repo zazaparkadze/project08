@@ -6,15 +6,15 @@ export default async function UserNavBar({ username }: Props) {
     {
       name: "zaza",
       profile: {
-        chat: "Discord",
         worksAt: "Hanson",
+        chat: "Discord",
       },
     },
     {
       name: "tusya",
       profile: {
-        chat: "WhatsApp",
         worksAt: "Atidim",
+        chat: "WhatsApp",
       },
     },
   ];
@@ -22,10 +22,10 @@ export default async function UserNavBar({ username }: Props) {
   const foundUserProfile = usersProfiles.find(
     (user) => user.name === username
   ) || {
-    name: "Dear Guest",
+    name: username,
     profile: {
-      chat: "GridLine",
-      worksAt: "Welcome to",
+      worksAt: "GridLine",
+      chat: "Subscribe",
     },
   };
 

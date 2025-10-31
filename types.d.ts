@@ -181,3 +181,6 @@ type SearchResults = {
     pages?: Result[];
   };
 };
+type Decoded = {
+  [index: string]: string | number;
+};

@@ -1,18 +1,14 @@
 import { NextResponse } from "next/server";
 import CreateFeedback from "@/lib/createFeedback";
 
-export function GET() {
-  return NextResponse.json({ message: "hi there" });
-}
-
-export async function OPTIONS() {
+export function GET(request: Request) {
+  const origin = request.headers.get("origin");
   return NextResponse.json(
-    {},
+    { message: "hi there" },
     {
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+        "Access-Control-Allow-Origin": origin!,
+        "Access-Control-Allow-Credentials": "true",
       },
     }
   );
@@ -33,7 +29,8 @@ export async function POST(request: Request) {
   return NextResponse.json(sentData, {
     status: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": origin!,
+      "Access-Control-Allow-Credentials": "true",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
