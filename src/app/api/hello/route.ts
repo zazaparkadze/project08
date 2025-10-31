@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-export async function OPTIONS() {
+export async function OPTIONS(request: Request) {
+  const origin = request.headers.get("origin") as string;
   return NextResponse.json(
     {},
     {
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": origin!,
         "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Allow-Credentials": "true",
