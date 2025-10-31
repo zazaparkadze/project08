@@ -21,6 +21,7 @@ const allowedOrigind =
         "https://vercel.com",
         "https://project08-bay.vercel.app",
         "https://nextapi-psi.vercel.app",
+        "https://project08-bay-git-feature-jwt-zaza-parkadze.vercel.app",
       ];
 
 export async function middleware(request: NextRequest) {
