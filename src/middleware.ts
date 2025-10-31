@@ -29,9 +29,6 @@ export async function middleware(request: NextRequest) {
   const origin = request.headers.get("origin");
   const { pathname } = request.nextUrl;
 
-  if (pathname === "/login") {
-    return;
-  }
   if (origin && !allowedOrigind.includes(origin)) {
     return new NextResponse(
       JSON.stringify({ message: "Bad Request/Not Allowed" }),
