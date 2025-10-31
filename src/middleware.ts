@@ -43,6 +43,11 @@ export async function middleware(request: NextRequest) {
       }
     );
   }
+
+  if (pathname === "/login") {
+    return NextResponse.next();
+  }
+
   if (pathname === "/michael") {
     return NextResponse.redirect(new URL("https://parkadze.com"), {
       headers: {
@@ -54,8 +59,6 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-const regex = new RegExp("/api/(?!login|register|refresh).*");
-
 export const config = {
-  matcher: [regex, "/michael"],
+  matcher: ["/api/:path*", "/michael"],
 };
