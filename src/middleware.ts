@@ -14,6 +14,7 @@ const allowedOrigind =
         "https://nextapi-psi.vercel.app",
       ]
     : [
+        "*vercel.app",
         "http://localhost:3000",
         "https://www.google.com",
         "https://www.parkadze.com",
@@ -27,6 +28,10 @@ const allowedOrigind =
 export async function middleware(request: NextRequest) {
   const origin = request.headers.get("origin");
   const { pathname } = request.nextUrl;
+
+  if (pathname === "/login") {
+    return;
+  }
   if (origin && !allowedOrigind.includes(origin)) {
     return new NextResponse(
       JSON.stringify({ message: "Bad Request/Not Allowed" }),
@@ -35,6 +40,7 @@ export async function middleware(request: NextRequest) {
         statusText: "Bad request legamre",
         headers: {
           "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": origin!,
           "Access-Control-Allow-Credentials": "true",
         },
       }
@@ -53,5 +59,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/:path*", "/michael"],
+  matcher: ["/api/(?!login).*", "/michael"],
 };
