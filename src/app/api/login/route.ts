@@ -4,7 +4,7 @@ import User from "@/model/User";
 import bcrypt from "bcrypt";
 import { limiter } from "@/config/limiter";
 import jwt from "jsonwebtoken";
-
+/* 
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get("origin");
   const loginResponseHeaders = {
@@ -18,7 +18,7 @@ export async function OPTIONS(request: Request) {
     headers: loginResponseHeaders,
   });
 }
-
+ */
 export async function POST(request: Request) {
   connectDB();
   const origin = request.headers.get("origin");
@@ -86,13 +86,13 @@ export async function POST(request: Request) {
   const accessToken = jwt.sign(
     { username: foundUser.username },
     process.env.ACCESS_TOKEN_SECRET!,
-    { expiresIn: "2m" }
+    { expiresIn: "1m" }
   );
 
   const refreshToken = jwt.sign(
     { username: foundUser.username },
     process.env.REFRESH_TOKEN_SECRET!,
-    { expiresIn: "1 day" }
+    { expiresIn: "180m" }
   );
 
   foundUser.refreshToken = refreshToken;

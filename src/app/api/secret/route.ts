@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function GET(request: NextRequest) {
-  console.log(request.url);
-  console.log(request.nextUrl);
   const origin = request.headers.get("origin");
 
   if (request.nextUrl.href.includes("zaza")) {

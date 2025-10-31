@@ -20,6 +20,7 @@ export default function UserLoginForm() {
         ? "https://project08-bay.vercel.app/api/login"
         : "http://localhost:3000/api/login";
 
+    console.log(url);
     /*  const res = await fetch("https://project08-bay.vercel.app/api/login", { */
     const res = await fetch(url, {
       method: "POST",

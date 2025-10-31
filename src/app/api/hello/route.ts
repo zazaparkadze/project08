@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(
       {
-        message: `the same content --- Hello ${decoded.username}, you have an access to this page!`,
+        message: `Hello ${decoded.username}, you have an access to this page!`,
       },
       {
         status: 200,
@@ -79,7 +79,10 @@ export async function GET(request: NextRequest) {
     });
     if (res.ok) {
       const setCookieHeader = res.headers.get("set-cookie");
-      const response = NextResponse.json({ message: "The same content-" });
+      const response = NextResponse.json({
+        message:
+          "The same access granted, The same content/ or waiting to same content",
+      });
       if (setCookieHeader) response.headers.set("Set-Cookie", setCookieHeader);
       return response;
     }

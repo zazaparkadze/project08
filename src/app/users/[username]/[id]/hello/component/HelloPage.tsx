@@ -8,7 +8,7 @@ type Result = {
 };
 
 export default function HelloPage({ url }: { url: string }) {
-  const [result, setResult] = useState<Result>({ message: "0" });
+  const [result, setResult] = useState<Result>({ message: "loading..." });
   useEffect(() => {
     const fetchData = async () => {
       try {
