@@ -12,7 +12,6 @@ export default function Home() {
         <p>
           <Link href={"register"}>Register </Link>
         </p>
-
         <p>
           <Link href={"employees"}>Employees</Link>
         </p>
