@@ -57,7 +57,21 @@ export async function GET(request: NextRequest) {
       process.env.REFRESH_TOKEN_SECRET as string
     ) as JwtPayload;
 
-    const refreshEndpoint = "http://localhost:3000/api/refresh";
+    const refreshEndpoint =
+      process.env.NODE_ENV === "production"
+        ? "https://project08-bay.vercel.app/api/refresh"
+        : "http://localhost:3000/api/refresh";
+
+    const loginEndpoint =
+      process.env.NODE_ENV === "production"
+        ? "https://project08-bay.vercel.app/login"
+        : "http://localhost:3000/login";
+
+    const rootUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://project08-bay.vercel.app"
+        : "http://localhost:3000";
+
     const res = await fetch(refreshEndpoint, {
       method: "GET",
       headers: { cookie: `refreshToken=${refreshToken}` },
@@ -70,9 +84,9 @@ export async function GET(request: NextRequest) {
     }
 
     if (!decoded) {
-      return NextResponse.redirect(new URL("http://localhost:3000/login"));
+      return NextResponse.redirect(new URL(loginEndpoint));
     }
 
-    return NextResponse.redirect(new URL("http://localhost:3000"));
+    return NextResponse.redirect(rootUrl);
   }
 }

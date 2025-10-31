@@ -3,8 +3,13 @@ import Link from "next/link";
 import { FaHome } from "react-icons/fa";
 
 export default function LogoutButton() {
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://project08-bay.vercel.app/api/logout"
+      : "http://localhost:3000/api/logout";
+
   const handleLogout = async () => {
-    await fetch("http://localhost:3000/api/logout", {
+    await fetch(url, {
       method: "GET",
       credentials: "include",
     });
