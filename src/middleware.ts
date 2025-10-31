@@ -46,7 +46,6 @@ export async function middleware(request: NextRequest) {
   if (pathname === "/michael") {
     return NextResponse.redirect(new URL("https://parkadze.com"), {
       headers: {
-        "Content-Type": "text/plain",
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Origin": origin!,
       },
@@ -56,5 +55,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/(?!login).*", "/michael"],
+  matcher: [/^\/api\/(?!login|register|refresh).*$/, "/michael"],
 };
