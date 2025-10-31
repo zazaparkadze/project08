@@ -23,7 +23,12 @@ export async function GET(request: NextRequest) {
   const refreshToken = cookieStore.get("refreshToken")?.value as string;
 
   if (!accessToken && !refreshToken) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const { pathname, origin } = request.nextUrl;
+
+    if (pathname.startsWith("/api")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return NextResponse.redirect(new URL("/login", origin));
   }
 
   try {

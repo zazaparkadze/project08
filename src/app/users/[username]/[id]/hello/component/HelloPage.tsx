@@ -38,7 +38,7 @@ export default function HelloPage({ url }: { url: string }) {
 
   return (
     <div>
-      <p> {result.message}</p>
+      <p className="text-3xl pb-3"> {result.message}</p>
       <LogoutButton />
     </div>
   );
