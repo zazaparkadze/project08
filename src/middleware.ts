@@ -54,6 +54,8 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
+const regex = new RegExp("/api/(?!login|register|refresh).*");
+
 export const config = {
-  matcher: [/^\/api\/(?!login|register|refresh).*$/, "/michael"],
+  matcher: [regex, "/michael"],
 };
