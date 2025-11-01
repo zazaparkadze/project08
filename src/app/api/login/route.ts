@@ -4,15 +4,7 @@ import User from "@/model/User";
 import bcrypt from "bcrypt";
 import { limiter } from "@/config/limiter";
 import jwt from "jsonwebtoken";
-
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://www.google.com",
-  "https://www.google.com",
-  "https://vercel.com",
-  "https://project08-bay.vercel.app",
-  "https://project08-bay-git-feature-jwt-zaza-parkadze.vercel.app", // optional fallback
-];
+import { allowedOrigins } from "@/config/allowedOrigins";
 
 function getCorsHeaders(origin: string | null) {
   const headers: Record<string, string> = {
@@ -93,22 +85,22 @@ export async function POST(request: Request) {
       }
     );
   }
+
+  const accessToken = jwt.sign(
+    { username: foundUser.username },
+    process.env.ACCESS_TOKEN_SECRET!,
+    { expiresIn: "1m" }
+  );
+
+  const refreshToken = jwt.sign(
+    { username: foundUser.username },
+    process.env.REFRESH_TOKEN_SECRET!,
+    { expiresIn: "180m" }
+  );
+
+  foundUser.refreshToken = refreshToken;
+  await foundUser.save();
   try {
-    const accessToken = jwt.sign(
-      { username: foundUser.username },
-      process.env.ACCESS_TOKEN_SECRET!,
-      { expiresIn: "1m" }
-    );
-
-    const refreshToken = jwt.sign(
-      { username: foundUser.username },
-      process.env.REFRESH_TOKEN_SECRET!,
-      { expiresIn: "180m" }
-    );
-
-    foundUser.refreshToken = refreshToken;
-    await foundUser.save();
-
     const response = NextResponse.json(
       {
         username: foundUser.username,
