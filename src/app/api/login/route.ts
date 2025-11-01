@@ -8,13 +8,10 @@ import jwt from "jsonwebtoken";
 const allowedOrigins = [
   "http://localhost:3000",
   "https://www.google.com",
-  "https://www.parkadze.com",
   "https://www.google.com",
   "https://vercel.com",
   "https://project08-bay.vercel.app",
-  "https://nextapi-psi.vercel.app",
   "https://project08-bay-git-feature-jwt-zaza-parkadze.vercel.app", // optional fallback
-  "*vercel.app",
 ];
 
 function getCorsHeaders(origin: string | null) {
@@ -96,44 +93,50 @@ export async function POST(request: Request) {
       }
     );
   }
+  try {
+    const accessToken = jwt.sign(
+      { username: foundUser.username },
+      process.env.ACCESS_TOKEN_SECRET!,
+      { expiresIn: "1m" }
+    );
 
-  const accessToken = jwt.sign(
-    { username: foundUser.username },
-    process.env.ACCESS_TOKEN_SECRET!,
-    { expiresIn: "1m" }
-  );
+    const refreshToken = jwt.sign(
+      { username: foundUser.username },
+      process.env.REFRESH_TOKEN_SECRET!,
+      { expiresIn: "180m" }
+    );
 
-  const refreshToken = jwt.sign(
-    { username: foundUser.username },
-    process.env.REFRESH_TOKEN_SECRET!,
-    { expiresIn: "180m" }
-  );
+    foundUser.refreshToken = refreshToken;
+    await foundUser.save();
 
-  foundUser.refreshToken = refreshToken;
-  await foundUser.save();
+    const response = NextResponse.json(
+      {
+        username: foundUser.username,
+        id: foundUser.id,
+        accessToken: accessToken,
+      },
+      {
+        status: 200,
+        statusText: "loggedIn",
+        headers: headers,
+      }
+    );
 
-  const response = NextResponse.json(
-    {
-      username: foundUser.username,
-      id: foundUser.id,
-      accessToken: accessToken,
-    },
-    {
-      status: 200,
-      statusText: "loggedIn",
-      headers: headers,
-    }
-  );
-
-  response.cookies.set({
-    name: "refreshToken",
-    value: refreshToken,
-    httpOnly: true,
-    secure: true,
-    sameSite: "lax",
-    maxAge: 86400,
-    path: "/",
-  });
-
-  return response;
+    response.cookies.set({
+      name: "refreshToken",
+      value: refreshToken,
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      maxAge: 86400,
+      path: "/",
+    });
+    return response;
+  } catch (error) {
+    console.error("LOGIN ERROR---:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error from catch block", details: error },
+      { status: 500 }
+    );
+  }
 }

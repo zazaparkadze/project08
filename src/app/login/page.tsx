@@ -2,6 +2,12 @@
 import { useState, FormEvent, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+type FetchResult = {
+  username: string;
+  id: number;
+  accessToken: string;
+};
+
 export default function UserLoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,11 +32,14 @@ export default function UserLoginForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
-        password,
+        username: username,
+        password: password,
       }),
     });
-    const result = await res.json();
+    if (!res.ok) {
+      return <p>{JSON.stringify(res)}</p>;
+    }
+    const result: FetchResult = await res.json();
     console.log(result);
 
     if (result.username === username) {
