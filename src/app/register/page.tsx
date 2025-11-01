@@ -22,7 +22,6 @@ export default function UserRegistrationForm() {
         ? "https://project08-bay.vercel.app/api/register"
         : "http://localhost:3000/api/register";
 
-    /* const res = await fetch(" https://project08-bay.vercel.app/api/register", { */
     const res = await fetch(url, {
       method: "POST",
       headers: {

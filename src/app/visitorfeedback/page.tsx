@@ -23,7 +23,6 @@ export default function Feedback() {
         ? "https://project08-bay.vercel.app/api/feedback"
         : "http://localhost:3000/api/feedback";
 
-    /* const res = await fetch("https://project08-bay.vercel.app/api/feedback", { */
     const res = await fetch(url, {
       method: "POST",
       headers: {

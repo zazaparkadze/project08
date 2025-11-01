@@ -27,7 +27,7 @@ function getCorsHeaders(origin: string | null) {
   if (origin && allowedOrigins.includes(origin)) {
     headers["Access-Control-Allow-Origin"] = origin;
   } else {
-    headers["Access-Control-Allow-Origin"] = allowedOrigins[0]; // default localhost
+    headers["Access-Control-Allow-Origin"] = allowedOrigins[0];
   }
 
   return headers;
@@ -115,12 +115,12 @@ export async function POST(request: Request) {
   foundUser.refreshToken = refreshToken;
   await foundUser.save();
 
-  const response = NextResponse.json(
-    {
+  const response = new NextResponse(
+    JSON.stringify({
       username: foundUser.username,
       id: foundUser.id,
       accessToken: accessToken,
-    },
+    }),
     {
       status: 200,
       statusText: "loggedIn",

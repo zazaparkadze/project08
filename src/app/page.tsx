@@ -28,7 +28,7 @@ export default function Home() {
           <Link href={"reedfeedbacks"}>Reed Feedbacks</Link>
         </div>
         <div>
-          <Link href={"michael"}>Michael</Link>
+          <Link href={"https://www.parkadze.com"}>Michael</Link>
         </div>
       </main>
     </div>
