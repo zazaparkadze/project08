@@ -15,6 +15,7 @@ export function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const origin = request.headers.get("origin");
   const data = await request.json();
   const { name, email, phone, textContent } = data;
   const sentData: Feedback = { name, email, phone, textContent };

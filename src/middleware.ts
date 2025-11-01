@@ -1,28 +1,44 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+export const runtime = "nodejs";
 
-  response.headers.set("Access-Control-Allow-Origin", "*");
-  response.headers.set(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  response.headers.set(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? [
+        "http://localhost:3000",
+        "https://www.parkadze.com",
+        "https://project08-bay.vercel.app",
+        "https://www.google.com",
+        "https://vercel.com",
+        "https://project08-bay-git-feature-jwt-zaza-parkadze.vercel.app",
+      ]
+    : [
+        "http://localhost:3000",
+        "https://www.google.com",
+        "https://project08-bay.vercel.app",
+      ];
 
-  // Handle preflight requests
-  if (request.method === "OPTIONS") {
-    return new NextResponse(null, { headers: response.headers });
+export async function middleware(request: NextRequest) {
+  const origin = request.headers.get("origin");
+
+  if (origin && !allowedOrigins.includes(origin)) {
+    return new NextResponse(
+      JSON.stringify({ message: "Bad Request/Not Allowed" }),
+      {
+        status: 400,
+        statusText: "Bad request legamre",
+        headers: {
+          "Content-Type": "text/plain",
+          "Access-Control-Allow-Origin": origin!,
+          "Access-Control-Allow-Credentials": "true",
+        },
+      }
+    );
   }
-
-  return response;
+  return NextResponse.next();
 }
 
-// Apply to all API routes
 export const config = {
   matcher: ["/api/:path*"],
 };

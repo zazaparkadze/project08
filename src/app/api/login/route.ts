@@ -57,9 +57,7 @@ export async function POST(request: Request) {
       }
     );
   }
-
   const { username, password } = await request.json();
-
   if (!username || !password) {
     return NextResponse.json(
       {
@@ -73,7 +71,6 @@ export async function POST(request: Request) {
     );
   }
   const foundUser = await User.findOne({ username: username });
-
   if (!foundUser) {
     return NextResponse.json(
       {
@@ -115,12 +112,12 @@ export async function POST(request: Request) {
   foundUser.refreshToken = refreshToken;
   await foundUser.save();
 
-  const response = new NextResponse(
-    JSON.stringify({
+  const response = NextResponse.json(
+    {
       username: foundUser.username,
       id: foundUser.id,
       accessToken: accessToken,
-    }),
+    },
     {
       status: 200,
       statusText: "loggedIn",
