@@ -27,7 +27,7 @@ export async function POST(request: Request) {
   connectDB();
   const origin = request.headers.get("origin");
   const headers = {
-    "Access-Control-Allow-Origin": origin as string,
+    "Access-Control-Allow-Origin": origin!,
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
@@ -110,7 +110,6 @@ export async function POST(request: Request) {
       {
         status: 200,
         statusText: "loggedIn",
-        headers: headers,
       }
     );
 

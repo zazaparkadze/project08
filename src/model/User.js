@@ -6,6 +6,12 @@ const UserSchema = new Schema({
   id: Number,
   username: String,
   password: String,
+  roles: {
+    type: Object,
+    default: {
+      user: 2001,
+    },
+  },
   refreshToken: {
     type: String,
     default: "",
