@@ -6,32 +6,32 @@ import { limiter } from "@/config/limiter";
 import jwt from "jsonwebtoken";
 import { allowedOrigins } from "@/config/allowedOrigins";
 
-function getCorsHeaders(origin: string | null) {
-  const headers: Record<string, string> = {
-    "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
-  };
-
+export async function OPTIONS(req: Request) {
+  const origin = req.headers.get("origin");
   if (origin && allowedOrigins.includes(origin)) {
-    headers["Access-Control-Allow-Origin"] = origin;
-  } else {
-    headers["Access-Control-Allow-Origin"] = allowedOrigins[0];
+    return new NextResponse(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": origin,
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });
   }
 
-  return headers;
-}
-
-export async function OPTIONS(request: Request) {
-  const origin = request.headers.get("origin");
-  const headers = getCorsHeaders(origin);
-  return new Response(null, { status: 204, headers });
+  return new NextResponse(null, { status: 403 });
 }
 
 export async function POST(request: Request) {
   connectDB();
   const origin = request.headers.get("origin");
-  const headers = getCorsHeaders(origin);
+  const headers = {
+    "Access-Control-Allow-Origin": origin as string,
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
 
   const remaining = await limiter.removeTokens(1);
   if (remaining < 0) {
