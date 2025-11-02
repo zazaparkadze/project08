@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       },
       {
         status: 400,
-        statusText: "Bad Request",
+        statusText: "Bad Request user/pwd",
         headers: headers,
       }
     );
