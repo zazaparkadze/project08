@@ -25,7 +25,7 @@ export default function UserLoginForm() {
       process.env.NODE_ENV === "production"
         ? "https://project08-bay.vercel.app/api/login"
         : "http://localhost:3000/api/login";
-    console.log(url);
+
     const res = await fetch(url, {
       method: "POST",
       headers: {
@@ -40,7 +40,6 @@ export default function UserLoginForm() {
       return <p>{JSON.stringify(res)}</p>;
     }
     const result: FetchResult = await res.json();
-    console.log(result);
 
     if (result.username === username) {
       router.push(`/users/${username}/${result.id}`);

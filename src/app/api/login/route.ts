@@ -110,6 +110,7 @@ export async function POST(request: Request) {
       {
         status: 200,
         statusText: "loggedIn",
+        headers: headers,
       }
     );
 
