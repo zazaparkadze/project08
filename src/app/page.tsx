@@ -27,6 +27,9 @@ export default function Home() {
         <div>
           <Link href={"reedfeedbacks"}>Reed Feedbacks</Link>
         </div>
+        <div>
+          <Link href={"admin"}>Admin</Link>
+        </div>
       </main>
     </div>
   );

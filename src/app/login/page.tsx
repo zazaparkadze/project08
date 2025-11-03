@@ -36,9 +36,7 @@ export default function UserLoginForm() {
         password: password,
       }),
     });
-    if (!res.ok) {
-      return <p>{JSON.stringify(res)}</p>;
-    }
+
     const result: FetchResult = await res.json();
 
     if (result.username === username) {
