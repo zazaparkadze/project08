@@ -87,13 +87,13 @@ export async function POST(request: Request) {
   }
 
   const accessToken = jwt.sign(
-    { username: foundUser.username },
+    { username: foundUser.username, roles: foundUser.roles },
     process.env.ACCESS_TOKEN_SECRET!,
     { expiresIn: "1m" }
   );
 
   const refreshToken = jwt.sign(
-    { username: foundUser.username },
+    { username: foundUser.username, roles: foundUser.roles },
     process.env.REFRESH_TOKEN_SECRET!,
     { expiresIn: "180m" }
   );
