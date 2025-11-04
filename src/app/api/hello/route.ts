@@ -24,12 +24,15 @@ export async function GET(request: NextRequest) {
   const refreshToken = cookieStore.get("refreshToken")?.value as string;
 
   if (!accessToken && !refreshToken) {
-    const { pathname, origin } = request.nextUrl;
+    const { pathname } = request.nextUrl;
 
     if (pathname.startsWith("/api")) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401, statusText: "no tokens present" }
+      );
     }
-    return NextResponse.redirect(new URL("/login", origin));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
   try {
@@ -50,9 +53,8 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch (err) {
-    console.error("JWT error:", err);
-
+  } catch /*(err)*/ {
+    /* console.error("JWT error:", err); */
     const decoded = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET as string
@@ -67,11 +69,6 @@ export async function GET(request: NextRequest) {
       process.env.NODE_ENV === "production"
         ? "https://project08-bay.vercel.app/login"
         : "http://localhost:3000/login";
-
-    const rootUrl =
-      process.env.NODE_ENV === "production"
-        ? "https://project08-bay.vercel.app"
-        : "http://localhost:3000";
 
     const res = await fetch(refreshEndpoint, {
       method: "GET",
@@ -90,7 +87,5 @@ export async function GET(request: NextRequest) {
     if (!decoded) {
       return NextResponse.redirect(new URL(loginEndpoint));
     }
-
-    return NextResponse.redirect(rootUrl);
   }
 }

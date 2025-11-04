@@ -25,11 +25,6 @@ export default function Home() {
               </Link>
             </li>
             <li className="brightness-70 hover:brightness-150">
-              <Link href={"https://project02-gold.vercel.app"} target="_blank">
-                WikiRocket
-              </Link>
-            </li>
-            <li className="brightness-70 hover:brightness-150">
               <Link
                 href={"https://project03-gold-mocha.vercel.app"}
                 target="_blank"

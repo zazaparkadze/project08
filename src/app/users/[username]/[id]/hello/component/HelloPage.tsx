@@ -19,8 +19,8 @@ export default function HelloPage({ url }: { url: string }) {
         if (!res.ok) {
           setResult({
             message:
-              res.statusText === "no access Token present"
-                ? "NO ACCESS TOKEN __You are NOT authorized"
+              res.statusText === "no tokens present"
+                ? "No Tokens: NOT authorized, Sign in again"
                 : "Access token not valid or expired ",
           });
           return;

@@ -24,11 +24,6 @@ export default function NavBar() {
               </Link>
             </li>
             <li className="hover:underline">
-              <Link href={"http://project02-gold.vercel.app"} target="_blank">
-                WikiRocket
-              </Link>
-            </li>
-            <li className="hover:underline">
               <Link
                 href={"http://project03-gold-mocha.vercel.app"}
                 target="_blank"
