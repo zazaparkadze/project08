@@ -8,13 +8,18 @@ export default function Admin() {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const url =
+    process.env.NODE_ENV === "production"
+      ? "https://project08-bay.vercel.app/api/login"
+      : "http://localhost:3000/api/login";
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
 
   const handleDelete = () => {
     const handleFetch = async () => {
-      await fetch("http://localhost:3000/api/admin", {
+      await fetch(url, {
         method: "DELETE",
         body: JSON.stringify({ user }),
       });
@@ -26,7 +31,7 @@ export default function Admin() {
   const handleUpdate = () => {
     console.log("updated");
     const handleFetch = async () => {
-      await fetch("http://localhost:3000/api/admin", {
+      await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +48,7 @@ export default function Admin() {
   const handleUpdateRole = () => {
     console.log("Role Deleted");
     const handleFetch = async () => {
-      await fetch("http://localhost:3000/api/admin", {
+      await fetch(url, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
