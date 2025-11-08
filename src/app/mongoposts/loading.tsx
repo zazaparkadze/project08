@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function loading() {
-  return <p className="text-2xl text-green-700">Loading...</p>;
+  return (
+    <p className="text-2xl text-green-700 flex flex-col min-h-screen">
+      Loading...
+    </p>
+  );
 }

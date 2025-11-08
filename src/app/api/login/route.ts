@@ -89,13 +89,13 @@ export async function POST(request: Request) {
   const accessToken = jwt.sign(
     { username: foundUser.username, roles: foundUser.roles },
     process.env.ACCESS_TOKEN_SECRET!,
-    { expiresIn: "1m" }
+    { expiresIn: "5m" }
   );
 
   const refreshToken = jwt.sign(
     { username: foundUser.username, roles: foundUser.roles },
     process.env.REFRESH_TOKEN_SECRET!,
-    { expiresIn: "180m" }
+    { expiresIn: "100m" }
   );
 
   foundUser.refreshToken = refreshToken;
@@ -120,7 +120,7 @@ export async function POST(request: Request) {
       httpOnly: true,
       secure: true,
       sameSite: "lax",
-      maxAge: 86400,
+      maxAge: 6000,
       path: "/",
     });
     return response;

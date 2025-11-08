@@ -1,8 +1,11 @@
+declare module "*.css";
+
 type User = {
   id: number;
   username: string;
   password: string;
   refreshToken: string;
+  roles?: object;
 };
 type Employee = {
   id: number;

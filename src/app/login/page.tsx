@@ -41,7 +41,7 @@ export default function UserLoginForm() {
 
     if (result.username === username) {
       router.push(`/users/${username}/${result.id}`);
-      document.cookie = `accessToken=${result.accessToken}; Max-Age=120; SameSite=lax; path=/`;
+      document.cookie = `accessToken=${result.accessToken}; Max-Age=300; SameSite=lax; path=/`;
       setUsername("");
       setPassword("");
     } else {

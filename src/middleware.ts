@@ -17,14 +17,10 @@ export async function middleware(request: NextRequest) {
   const origin = request.headers.get("origin");
   // user's roles from jwt
   const cookiesStore = await cookies();
-  const refreshTokenCookieValue = cookiesStore.get("refreshToken")
-    ?.value as string;
+  const refreshToken = cookiesStore.get("refreshToken")?.value as string;
 
   try {
-    const decoded = jwt.verify(
-      refreshTokenCookieValue,
-      process.env.REFRESH_TOKEN_SECRET!
-    );
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
     const userRoles = (decoded as MyJwtPayload).roles;
 
     const allowedToSecrets = Object.values(userRoles)

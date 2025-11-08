@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import LogoutButton from "@/ui/LogoutButton";
+import HomeButton from "@/ui/HomeButton";
 
 type Result = {
   [index: string]: string;
@@ -37,9 +38,10 @@ export default function HelloPage({ url }: { url: string }) {
   }, [url]);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <p className="text-3xl pb-3"> {result.message}</p>
       <LogoutButton />
+      <HomeButton />
     </div>
   );
 }

@@ -1,0 +1,14 @@
+.home {
+  background-color: gray;
+  background-image: url("../../public/img/bubbles.png"),
+    linear-gradient(to top, gray, rgb(0, 0, 0));
+  background-position: right;
+  background-size: 20%, auto;
+  background-repeat: repeat-y;
+}
+.fontOpt {
+  font-size: clamp(1rem, 3vh, 1.5rem);
+}
+.noRepeat {
+  background-repeat: no-repeat;
+}

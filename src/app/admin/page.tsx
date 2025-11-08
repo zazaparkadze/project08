@@ -4,8 +4,8 @@ import { useRef, useState, useEffect } from "react";
 export default function Admin() {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
-  const [roles, setRoles] = useState("");
-  const [status, setStatus] = useState(false);
+  const [role, setRole] = useState("");
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -14,14 +14,10 @@ export default function Admin() {
 
   const handleDelete = () => {
     const handleFetch = async () => {
-      const response = await fetch("http://localhost:3000/api/admin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      await fetch("http://localhost:3000/api/admin", {
+        method: "DELETE",
         body: JSON.stringify({ user }),
       });
-      if (response.status === 200) setStatus(true);
     };
     handleFetch();
     setUser("");
@@ -29,6 +25,36 @@ export default function Admin() {
 
   const handleUpdate = () => {
     console.log("updated");
+    const handleFetch = async () => {
+      await fetch("http://localhost:3000/api/admin", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user, role, pwd }),
+      });
+    };
+    handleFetch();
+    setRole("");
+    setUser("");
+    setPwd("");
+  };
+
+  const handleUpdateRole = () => {
+    console.log("Role Deleted");
+    const handleFetch = async () => {
+      await fetch("http://localhost:3000/api/admin", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user, role }),
+      });
+    };
+    handleFetch();
+    setRole("");
+    setUser("");
+    setPwd("");
   };
 
   return (
@@ -40,10 +66,11 @@ export default function Admin() {
         <input
           type="text"
           placeholder="user"
+          required
           value={user}
           ref={inputRef}
           onChange={(e) => setUser(e.target.value)}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded"
+          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
         />
         <input
           type="text"
@@ -51,29 +78,34 @@ export default function Admin() {
           value={pwd}
           ref={inputRef}
           onChange={(e) => setPwd(e.target.value)}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded"
+          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded hover:bg-white hover:text-black"
         />
         <input
           type="text"
-          placeholder="roles"
-          value={roles}
-          onChange={(e) => setRoles(e.target.value)}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded"
+          placeholder="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
         />
         <button
           onClick={handleUpdate}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded"
+          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
         >
-          update
+          update password / add role
+        </button>
+        <button
+          onClick={handleUpdateRole}
+          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
+        >
+          delete role
         </button>
         <button
           onClick={handleDelete}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded"
+          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
         >
-          delete
+          delete user
         </button>
       </form>
-      {!status ? <p></p> : <p>deleted</p>}
     </div>
   );
 }

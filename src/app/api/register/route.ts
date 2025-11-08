@@ -41,7 +41,7 @@ export async function POST(request: Request) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const newUser: User = {
     id: allUsers.length ? allUsers[allUsers.length - 1].id + 1 : 1,
-    username,
+    username: username,
     password: hashedPassword,
     refreshToken: "",
   };
