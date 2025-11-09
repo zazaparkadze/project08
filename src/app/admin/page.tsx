@@ -5,13 +5,21 @@ export default function Admin() {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [role, setRole] = useState("");
+  const [updatedUser, setUpdatedUser] = useState({
+    message: "Awaiting update",
+    foundUser: {
+      roles: {
+        user: 2001,
+      },
+    },
+  });
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   const url =
     process.env.NODE_ENV === "production"
-      ? "https://project08-bay.vercel.app/api/login"
-      : "http://localhost:3000/api/login";
+      ? "https://project08-bay.vercel.app/api/admin"
+      : "http://localhost:3000/api/admin";
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -31,13 +39,16 @@ export default function Admin() {
   const handleUpdate = () => {
     console.log("updated");
     const handleFetch = async () => {
-      await fetch(url, {
+      const res = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ user, role, pwd }),
       });
+      const data = await res.json();
+      console.log(data);
+      setUpdatedUser(data);
     };
     handleFetch();
     setRole("");
@@ -48,13 +59,16 @@ export default function Admin() {
   const handleUpdateRole = () => {
     console.log("Role Deleted");
     const handleFetch = async () => {
-      await fetch(url, {
+      const res = await fetch(url, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ user, role }),
       });
+      const data = await res.json();
+      console.log(data);
+      setUpdatedUser(data);
     };
     handleFetch();
     setRole("");
@@ -63,10 +77,10 @@ export default function Admin() {
   };
 
   return (
-    <div>
+    <div className="grid place-content-center min-h-screen gap-8 ">
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="grid place-content-center min-h-screen sm:text-2xl gap-4"
+        className="grid place-content-center sm:text-2xl gap-4"
       >
         <input
           type="text"
@@ -111,6 +125,13 @@ export default function Admin() {
           delete user
         </button>
       </form>
+      <section
+        className="text-2xl text-black
+      "
+      >
+        <p>Message: {updatedUser.message}</p>
+        <p>User roles: {JSON.stringify(updatedUser.foundUser?.roles)}</p>
+      </section>
     </div>
   );
 }

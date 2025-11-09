@@ -4,6 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const origin = request.headers.get("origin");
+
+  const headers = {
+    "Access-Control-Allow-Origin": origin!,
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refreshToken")?.value as string;
 
@@ -24,10 +31,7 @@ export async function GET(request: Request) {
     const response = NextResponse.json(null, {
       status: 200,
       statusText: "new access token created",
-      headers: {
-        "Access-Control-Allow-Origin": origin!,
-        "Access-Control-Allow-Credentials": "true",
-      },
+      headers: headers,
     });
 
     response.cookies.set({
@@ -45,10 +49,7 @@ export async function GET(request: Request) {
     const response = NextResponse.json(null, {
       status: 400,
       statusText: "Must Sign In",
-      headers: {
-        "Access-Control-Allow-Origin": origin!,
-        "Access-Control-Allow-Credentials": "true",
-      },
+      headers: headers,
     });
     return response;
   }

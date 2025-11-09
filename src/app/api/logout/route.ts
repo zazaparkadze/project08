@@ -10,15 +10,17 @@ export async function GET(request: NextRequest) {
   const origin = request.headers.get("origin");
   const refreshToken = (await cookies()).get("refreshToken")?.value as string;
   const accessToken = (await cookies()).get("accessToken")?.value as string;
+  const headers = {
+    "Access-Control-Allow-Origin": origin!,
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
+  };
 
   if (!accessToken && !refreshToken) {
     return NextResponse.json(null, {
       status: 200,
       statusText: "NO TOKENS _______nothing to delete",
-      headers: {
-        "Access-Control-Allow-Origin": origin!,
-        "Access-Control-Allow-Credentials": "true",
-      },
+      headers: headers,
     });
   }
   try {
@@ -32,10 +34,7 @@ export async function GET(request: NextRequest) {
       const response = NextResponse.json(null, {
         status: 200,
         statusText: "refreshToken deleted in DB",
-        headers: {
-          "Access-Control-Allow-Origin": origin!,
-          "Access-Control-Allow-Credentials": "true",
-        },
+        headers: headers,
       });
       if (accessToken) response.cookies.delete("accessToken");
       response.cookies.delete("refreshToken");
@@ -44,10 +43,7 @@ export async function GET(request: NextRequest) {
       const response = NextResponse.json(null, {
         status: 200,
         statusText: "refreshToken deleted in DB",
-        headers: {
-          "Access-Control-Allow-Origin": origin!,
-          "Access-Control-Allow-Credentials": "true",
-        },
+        headers: headers,
       });
       if (accessToken) response.cookies.delete("accessToken");
       response.cookies.delete("refreshToken");
@@ -57,10 +53,7 @@ export async function GET(request: NextRequest) {
     const response = NextResponse.json(null, {
       status: 200,
       statusText: "nothing to delete",
-      headers: {
-        "Access-Control-Allow-Origin": origin!,
-        "Access-Control-Allow-Credentials": "true",
-      },
+      headers: headers,
     });
     if (accessToken) response.cookies.delete("accessToken");
     response.cookies.delete("refreshToken");

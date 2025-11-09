@@ -12,6 +12,7 @@ export function OPTIONS(request: NextRequest) {
     headers: {
       "Access-Control-Allow-Origin": origin!,
       "Access-Controll-Allow-Credentials": "true",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
     },
   });
 }
@@ -21,7 +22,8 @@ export async function DELETE(request: NextRequest) {
   const origin = request.headers.get("origin");
   const headers = {
     "Access-Control-Allow-Origin": origin!,
-    "Access-Controll-Allow-Credentials": "true",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
   };
 
   const { user } = await request.json();
@@ -67,7 +69,8 @@ export async function PUT(request: NextRequest) {
   const origin = request.headers.get("origin");
   const headers = {
     "Access-Control-Allow-Origin": origin!,
-    "Access-Controll-Allow-Credentials": "true",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
   };
   const { user, role, pwd } = await request.json();
 
@@ -106,7 +109,7 @@ export async function PUT(request: NextRequest) {
   }
 
   return NextResponse.json(
-    { message: `user ${user} updated` },
+    { message: `User ${user} roles/password updated`, foundUser: foundUser },
     {
       status: 200,
       statusText: "Roles updated successfully",
@@ -120,7 +123,8 @@ export async function PATCH(request: NextRequest) {
   const origin = request.headers.get("origin");
   const headers = {
     "Access-Control-Allow-Origin": origin!,
-    "Access-Controll-Allow-Credentials": "true",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
   };
 
   const { user, role } = await request.json();
@@ -133,7 +137,7 @@ export async function PATCH(request: NextRequest) {
 
   if (!foundUser) {
     return NextResponse.json(
-      { message: `user ${user} not found / or no role` },
+      { message: `user ${user} not found/or no role`, foundUser: foundUser },
       {
         status: 400,
         statusText: "No user or No Role",
@@ -142,15 +146,14 @@ export async function PATCH(request: NextRequest) {
     );
   }
   console.log(foundUser);
-
   const foundRoles = foundUser.roles;
-
   const { [role]: _, ...rest } = foundRoles;
   foundUser.roles = rest;
+
   await foundUser.save();
 
   return NextResponse.json(
-    { message: `user ${user} role ${role} deleted` },
+    { message: `user ${user} role ${role} deleted`, foundUser: foundUser },
     {
       status: 200,
       statusText: " Role deleted",

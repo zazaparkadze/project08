@@ -8,15 +8,17 @@ import { allowedOrigins } from "@/config/allowedOrigins";
 
 export async function OPTIONS(req: Request) {
   const origin = req.headers.get("origin");
+  const headers = {
+    "Access-Control-Allow-Origin": origin!,
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
+
   if (origin && allowedOrigins.includes(origin)) {
     return new NextResponse(null, {
       status: 204,
-      headers: {
-        "Access-Control-Allow-Origin": origin,
-        "Access-Control-Allow-Credentials": "true",
-        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
+      headers: headers,
     });
   }
 
@@ -29,10 +31,9 @@ export async function POST(request: Request) {
   const headers = {
     "Access-Control-Allow-Origin": origin!,
     "Access-Control-Allow-Credentials": "true",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, PATCH",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
-
   const remaining = await limiter.removeTokens(1);
   if (remaining < 0) {
     return NextResponse.json(
