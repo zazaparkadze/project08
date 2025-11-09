@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import getAllPosts from "@/lib/getAllPosts";
 import PostPage from "./components/PostPage";
 import HomeButton from "../../ui/HomeButton";
