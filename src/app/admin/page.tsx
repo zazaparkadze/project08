@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import { allowedOrigins } from "../../config/allowedOrigins";
 
 export default function Admin() {
   const [user, setUser] = useState("");
@@ -15,11 +16,10 @@ export default function Admin() {
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const url =
-    process.env.NODE_ENV === "production"
+  const url = allowedOrigins[0] + "/api/admin";
+  /*  process.env.NODE_ENV === "production"
       ? "https://project08-bay.vercel.app/api/admin"
-      : "http://localhost:3000/api/admin";
+      : "http://localhost:3000/api/admin" */
 
   useEffect(() => {
     inputRef.current?.focus();
