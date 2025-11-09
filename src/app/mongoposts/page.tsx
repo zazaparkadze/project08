@@ -5,6 +5,7 @@ import CreateMongoPost from "./components/CreateMongoPost";
 
 export default async function page() {
   const posts: Post[] = JSON.parse(await getAllPosts());
+
   return (
     <div className="text-2xl flex flex-col items-center gap-2">
       <div className="sticky top-0 bg-transparent flex flex-col items-center py-2">
