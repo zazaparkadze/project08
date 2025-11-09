@@ -6,9 +6,9 @@ import CreateMongoPost from "./components/CreateMongoPost";
 export default async function page() {
   const posts: Post[] = JSON.parse(await getAllPosts());
   return (
-    <div className="text-2xl flex flex-col items-center pt-4 gap-2">
-      <div className="sticky top-0 bg-black flex flex-col gap-2 items-center pt-4">
-        <p>Posts from mongo database directly!</p>
+    <div className="text-2xl flex flex-col items-center gap-2">
+      <div className="sticky top-0 bg-transparent flex flex-col items-center py-2">
+        Posts from mongo database directly!
       </div>
       <HomeButton />
       <CreateMongoPost />
