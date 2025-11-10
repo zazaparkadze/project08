@@ -23,3 +23,7 @@ export async function createMongoPost(formData: FormData) {
 
   await Post.create(newPost);
 }
+export async function searchString(formData: FormData) {
+  const searchString = formData.get("searchPost");
+  return searchString;
+}

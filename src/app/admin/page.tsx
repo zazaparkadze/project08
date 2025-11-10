@@ -36,7 +36,6 @@ export default function Admin() {
   };
 
   const handleUpdate = () => {
-    console.log("updated");
     const handleFetch = async () => {
       const res = await fetch(url, {
         method: "PUT",
@@ -46,7 +45,6 @@ export default function Admin() {
         body: JSON.stringify({ user, role, pwd }),
       });
       const data = await res.json();
-      console.log(data);
       setUpdatedUser(data);
     };
     handleFetch();
@@ -56,7 +54,6 @@ export default function Admin() {
   };
 
   const handleUpdateRole = () => {
-    console.log("Role Deleted");
     const handleFetch = async () => {
       const res = await fetch(url, {
         method: "PATCH",
@@ -66,7 +63,7 @@ export default function Admin() {
         body: JSON.stringify({ user, role }),
       });
       const data = await res.json();
-      console.log(data);
+
       setUpdatedUser(data);
     };
     handleFetch();

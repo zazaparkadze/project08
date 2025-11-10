@@ -10,7 +10,7 @@ type Params = {
 export default async function UserPage({ params }: Params) {
   const { username, id } = await params;
   const content = (
-    <div>
+    <div className="min-h-screen">
       {username.includes("Register") ? (
         <>
           <p className="sm:text-2xl text-[16px]">
@@ -25,14 +25,14 @@ export default async function UserPage({ params }: Params) {
           </p>
         </>
       ) : username.includes("Allowed") ? (
-        <>
+        <div>
           <p className="sm:text-2xl text-[16px]">
             {decodeURIComponent(username)}
           </p>
           <p className="hover:text-amber-600 mt-4 text-xl">
             <Link href={"/login"}>Click to Sign In</Link>
           </p>
-        </>
+        </div>
       ) : (
         <div className="sm:text-2xl text-[16px]">
           <UserHomePage username={username} id={id} />

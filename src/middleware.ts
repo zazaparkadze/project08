@@ -29,10 +29,10 @@ export async function middleware(request: NextRequest) {
 
     if (!allowedToSecrets) {
       return NextResponse.json(
-        { message: "not allowed from middleware, Reason: roles" },
+        { message: "not allowed (MDW), Reason: roles" },
         {
           status: 403,
-          statusText: "FORBIDDEN FROM MIDDLEWARE, Reason: roles",
+          statusText: "FORBIDDEN (MDW), Reason: roles",
           headers: {
             "Access-Control-Allow-Origin": origin!,
             "Access-Control-Allow-Credentials": "true",
@@ -44,10 +44,10 @@ export async function middleware(request: NextRequest) {
     }
   } catch (error) {
     return NextResponse.json(
-      { message: "not allowed from middleware", error: error },
+      { message: "not allowed (MDW)", error: error },
       {
         status: 403,
-        statusText: "FORBIDDEN FROM MIDDLEWARE",
+        statusText: "FORBIDDEN (MDW)",
         headers: {
           "Access-Control-Allow-Origin": origin!,
           "Access-Control-Allow-Credentials": "true",

@@ -20,6 +20,7 @@ export default function PostPage({ post }: Props) {
         Content: {postLength ? postBody.slice(0, 125) + "..." : postBody}
       </p>
       <p>Posted By {userId ? userId : "anonimous"}</p>
+      <hr />
     </section>
   );
   return content;

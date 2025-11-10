@@ -1,6 +1,5 @@
 import getAllFeedbacks from "@/lib/getAllFeedbacks";
 import HomeButton from "../../ui/HomeButton";
-
 export const dynamic = "force-dynamic";
 
 export default async function page() {
