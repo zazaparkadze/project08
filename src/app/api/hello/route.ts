@@ -51,8 +51,7 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch /*(err)*/ {
-    /* console.error("JWT error:", err); */
+  } catch {
     const decoded = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET as string

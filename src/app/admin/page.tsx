@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import clsx from "clsx";
 
 export default function Admin() {
   const [user, setUser] = useState("");
@@ -26,10 +27,12 @@ export default function Admin() {
 
   const handleDelete = () => {
     const handleFetch = async () => {
-      await fetch(url, {
+      const res = await fetch(url, {
         method: "DELETE",
         body: JSON.stringify({ user }),
       });
+      const data = await res.json();
+      setUpdatedUser(data);
     };
     handleFetch();
     setUser("");
@@ -63,7 +66,6 @@ export default function Admin() {
         body: JSON.stringify({ user, role }),
       });
       const data = await res.json();
-
       setUpdatedUser(data);
     };
     handleFetch();
@@ -125,8 +127,17 @@ export default function Admin() {
         className="text-2xl text-black
       "
       >
-        <p>Message: {updatedUser.message}</p>
-        <p>User roles: {JSON.stringify(updatedUser.foundUser?.roles)}</p>
+        <p
+          className={clsx("text-3xl", {
+            "text-amber-400": updatedUser.message.includes("deleted"),
+            "text-green-500": !updatedUser.message.includes("deleted"),
+          })}
+        >
+          Message: {updatedUser.message}
+        </p>
+        <p className="text-xl">
+          User roles: {JSON.stringify(updatedUser.foundUser?.roles)}
+        </p>
       </section>
     </div>
   );

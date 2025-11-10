@@ -32,34 +32,46 @@ export async function DELETE(request: NextRequest) {
     const result = await User.findOneAndDelete({ username: userId });
     //
     if (!result) {
-      return NextResponse.json(null, {
-        status: 404,
-        statusText: "user not found",
-        headers: headers,
-      });
+      return NextResponse.json(
+        { message: `User ${user} not found`, foundUser: result },
+        {
+          status: 404,
+          statusText: "user not found",
+          headers: headers,
+        }
+      );
     }
     //
     if (result.username === userId) {
-      return NextResponse.json(result, {
-        status: 200,
-        headers: headers,
-      });
+      return NextResponse.json(
+        { message: `User ${user} deleted`, foundUser: result },
+        {
+          status: 200,
+          headers: headers,
+        }
+      );
     }
   } else {
     const result = await User.findOneAndDelete({ id: userId });
     if (!result) {
-      return NextResponse.json(null, {
-        status: 404,
-        statusText: "user not found",
-        headers: headers,
-      });
+      return NextResponse.json(
+        { message: `User ${user} not found`, foundUser: result },
+        {
+          status: 404,
+          statusText: "user not found",
+          headers: headers,
+        }
+      );
     }
     //
     if (result.id === userId) {
-      return NextResponse.json(result, {
-        status: 200,
-        headers: headers,
-      });
+      return NextResponse.json(
+        { message: `User ${user} deleted`, foundUser: result },
+        {
+          status: 200,
+          headers: headers,
+        }
+      );
     }
   }
 }
@@ -128,8 +140,6 @@ export async function PATCH(request: NextRequest) {
   };
 
   const { user, role } = await request.json();
-  console.log(user, role);
-
   const foundUser = await User.findOne({
     username: user,
     [`roles.${role}`]: rolesList[role],
@@ -145,7 +155,6 @@ export async function PATCH(request: NextRequest) {
       }
     );
   }
-  console.log(foundUser);
   const foundRoles = foundUser.roles;
   const { [role]: _, ...rest } = foundRoles;
   foundUser.roles = rest;
