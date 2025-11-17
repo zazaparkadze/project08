@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import LogoutButton from "@/ui/LogoutButton";
 import HomeButton from "@/ui/HomeButton";
+import ReducerComponent from "./ReducerComponent";
 
 type Result = {
   [index: string]: string;
@@ -42,6 +43,7 @@ export default function HelloPage({ url }: { url: string }) {
       <p className="text-3xl pb-3"> {result.message}</p>
       <LogoutButton />
       <HomeButton />
+      <ReducerComponent />
     </div>
   );
 }
