@@ -1,5 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 import clsx from "clsx";
 
 export default function Admin() {
@@ -80,48 +82,30 @@ export default function Admin() {
         onSubmit={(e) => e.preventDefault()}
         className="grid place-content-center sm:text-2xl gap-4"
       >
-        <input
-          type="text"
+        <Input
           placeholder="user"
           required
           value={user}
           ref={inputRef}
           onChange={(e) => setUser(e.target.value)}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
+          className="hover:text-red-500"
         />
-        <input
-          type="text"
+        <Input
           placeholder="pwd"
           value={pwd}
-          ref={inputRef}
           onChange={(e) => setPwd(e.target.value)}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded hover:bg-white hover:text-black"
         />
-        <input
-          type="text"
+        <Input
           placeholder="role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
         />
-        <button
+        <Button
+          value={pwd !== "" ? "update password" : "update roles"}
           onClick={handleUpdate}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
-        >
-          update password / add role
-        </button>
-        <button
-          onClick={handleUpdateRole}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
-        >
-          delete role
-        </button>
-        <button
-          onClick={handleDelete}
-          className="sm:text-2xl py-2 pl-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black"
-        >
-          delete user
-        </button>
+        />
+        <Button value={"delete role"} onClick={handleUpdateRole} />
+        <Button value={"delete user"} onClick={handleDelete} />
       </form>
       <section
         className="text-2xl text-black
@@ -136,7 +120,11 @@ export default function Admin() {
           Message: {updatedUser.message}
         </p>
         <p className="text-xl">
-          User roles: {JSON.stringify(updatedUser.foundUser?.roles)}
+          User roles:{" "}
+          {JSON.stringify(updatedUser.foundUser?.roles).replaceAll(
+            /[{}"]/g,
+            ""
+          )}
         </p>
       </section>
     </div>
