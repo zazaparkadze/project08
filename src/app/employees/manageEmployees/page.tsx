@@ -8,6 +8,9 @@ import deleteEmployee from "@/lib/deleteEmployee";
 export default function EmployeeForm() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [status, setStatus] = useState("");
   const [id, setId] = useState("");
   const router = useRouter();
 
@@ -21,6 +24,9 @@ export default function EmployeeForm() {
           : 1,
         firstname,
         lastname,
+        email,
+        amount,
+        status,
       })
     );
     if (newEmployee.firstname === firstname) {
@@ -45,7 +51,7 @@ export default function EmployeeForm() {
   }
 
   return (
-    <div className="grid place-content-center gap-47 min-h-[100vh] text-3xl bg-slate-900">
+    <div className="grid place-content-center gap-47 min-h-screen text-3xl bg-slate-900">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center gap-5 p-10"
@@ -68,6 +74,28 @@ export default function EmployeeForm() {
           required
           className="px-6 py-2 bg-slate-700 rounded-2xl"
         />
+        <input
+          type="text"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="px-6 py-2 bg-slate-700 rounded-2xl"
+        />
+        <input
+          type="text"
+          placeholder="amount"
+          value={amount}
+          onChange={(e) => setAmount(Number(e.target.value))}
+          className="px-6 py-2 bg-slate-700 rounded-2xl"
+        />
+        <input
+          type="text"
+          placeholder="status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          className="px-6 py-2 bg-slate-700 rounded-2xl"
+        />
         <button type="submit" className="px-6 py-2 bg-slate-700 rounded-2xl">
           Enroll
         </button>
@@ -75,7 +103,7 @@ export default function EmployeeForm() {
       <form
         onSubmit={handleDelete}
         className="flex flex-col justify-center items-center gap-5
-         p-10 bg-gradient-to-r from-slate-900 to-slate-800"
+         p-10 bg-linear-to-r from-slate-900 to-slate-800"
       >
         <label htmlFor="id">Delete Info</label>
         <input

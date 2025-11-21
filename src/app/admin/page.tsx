@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import Input from "@/components/ui/input";
-import Button from "@/components/ui/button";
+import Input from "@/customComponents/ui/input";
+import Button from "@/customComponents/ui/button";
 import clsx from "clsx";
 
 export default function Admin() {

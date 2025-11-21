@@ -5,6 +5,11 @@ const EmployeeSchema = new Schema({
   id: Number,
   firstname: String,
   lastname: String,
+  email: String,
+  status: { type: String, default: "pending" },
+  amount: {
+    type: Number,
+  },
 });
 
 const Employee =

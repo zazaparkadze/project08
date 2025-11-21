@@ -11,6 +11,9 @@ type Employee = {
   id: number;
   firstname: string;
   lastname: string;
+  email: string;
+  amount: number;
+  status: string;
 };
 type BlogPost = {
   _id: string;

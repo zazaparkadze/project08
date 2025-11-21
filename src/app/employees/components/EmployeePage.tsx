@@ -13,7 +13,9 @@ export default async function EmployeePage({ data }: Props) {
       <p>First Name: {employee.firstname}</p>
       <p>Last Name: {employee.lastname}</p>
       <br />
-      <p>Email: {`${employee.lastname}_${employee.firstname}@parkadze.com`}</p>
+      <p>Email: {employee.email}</p>
+      <p>Amount: {employee.amount}</p>
+      <p>Status: {employee.status}</p>
       <br />
       <hr />
     </section>
