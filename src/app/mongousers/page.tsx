@@ -1,6 +1,7 @@
 import { columns } from "./columns"; //Payment
 import { DataTable } from "@/app/mongousers/data-table";
 import getAllEmployees from "@/lib/getAllEmployees";
+export const dynamic = "force-dynamic";
 /* 
 async function getData(): Promise<Employee[]> {
   const data = JSON.parse(await getAllEmployees());
