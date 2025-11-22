@@ -8,7 +8,7 @@ async function getData(): Promise<Employee[]> {
 } */
 
 export default async function DemoPage() {
-  const data = JSON.parse(await getAllEmployees()); //await getData();
+  const data: Employee[] = JSON.parse(await getAllEmployees()); //await getData();
 
   return (
     <div className="container mx-auto py-10">
