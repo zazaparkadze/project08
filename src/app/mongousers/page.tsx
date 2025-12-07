@@ -1,15 +1,10 @@
-import { columns } from "./columns"; //Payment
+import { columns } from "./columns";
 import { DataTable } from "@/app/mongousers/data-table";
 import getAllEmployees from "@/lib/getAllEmployees";
 export const dynamic = "force-dynamic";
-/* 
-async function getData(): Promise<Employee[]> {
-  const data = JSON.parse(await getAllEmployees());
-  return data;
-} */
 
 export default async function DemoPage() {
-  const data: Employee[] = JSON.parse(await getAllEmployees()); //await getData();
+  const data: Employee[] = JSON.parse(await getAllEmployees());
 
   return (
     <div className="container mx-auto py-10">

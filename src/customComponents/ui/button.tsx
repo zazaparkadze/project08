@@ -9,7 +9,7 @@ export default function Button({
     <button
       {...props}
       className={twMerge(
-        "sm:text-2xl py-2 px-4 bg-black/50 border-[1px] rounded  hover:bg-white hover:text-black",
+        "sm:text-2xl py-2 px-4 bg-black/50 border rounded  hover:bg-white hover:text-black",
         className
       )}
     >

@@ -13,7 +13,7 @@ export default function UserHomePage({ username, id }: Props) {
       <div>
         <p>Page for {username.toLocaleUpperCase()}</p>
       </div>
-      <main className="flex flex-col gap-[32px] row-start-2 items-center justify-center sm:items-start">
+      <main className="flex flex-col gap-8 row-start-2 items-center justify-center sm:items-start">
         <Image
           className="dark:invert"
           src="/next.svg"
